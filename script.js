@@ -1,45 +1,34 @@
-/* Typing Intro */
-const text = "Hey Eekshitha... I wrote something instead of saying it.";
-let i = 0;
+let tapCount = 0;
 
-function typing() {
-    if (i < text.length) {
-        document.querySelector(".typing").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(typing, 60);
-    }
-}
-typing();
+document.body.addEventListener("click", () => {
+    tapCount++;
 
-/* Scene Auto Play */
-const scenes = document.querySelectorAll(".scene");
-let current = 0;
-
-setInterval(() => {
-    scenes[current].classList.remove("active");
-    current = (current + 1) % scenes.length;
-    scenes[current].classList.add("active");
-}, 3500);
-
-/* -------- Easter Egg Logic -------- */
-
-/* Method 1: Type H + E */
-let secret = "";
-document.addEventListener("keydown", (e) => {
-    secret += e.key.toUpperCase();
-
-    if (secret.includes("HE")) {
-        unlockMemory();
+    if (tapCount === 5) {
+        document.getElementById("secret").style.display = "block";
+        launchConfetti();
     }
 });
 
-/* Method 2: Click Helium 5 times */
-let clicks = 0;
-document.getElementById("helium").addEventListener("click", () => {
-    clicks++;
-    if (clicks === 5) unlockMemory();
-});
-
-function unlockMemory() {
-    document.getElementById("easterEgg").style.display = "block";
+/* little celebration effect */
+function launchConfetti() {
+    for (let i = 0; i < 30; i++) {
+        let heart = document.createElement("div");
+        heart.innerHTML = "💖";
+        heart.style.position = "fixed";
+        heart.style.left = Math.random() * 100 + "vw";
+        heart.style.top = "-20px";
+        heart.style.fontSize = "20px";
+        heart.style.animation = "fall 3s linear forwards";
+        document.body.appendChild(heart);
+    }
 }
+
+const style = document.createElement('style');
+style.innerHTML = `
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}`;
+document.head.appendChild(style);
