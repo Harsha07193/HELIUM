@@ -1,17 +1,15 @@
-let tapCount = 0;
+document.getElementById("revealBtn").addEventListener("click", function () {
+    const secret = document.getElementById("secret");
 
-document.body.addEventListener("click", () => {
-    tapCount++;
+    secret.style.display = "block";
+    this.style.display = "none"; // hides button after clicking
 
-    if (tapCount === 5) {
-        document.getElementById("secret").style.display = "block";
-        launchConfetti();
-    }
+    launchHearts();
 });
 
-/* little celebration effect */
-function launchConfetti() {
-    for (let i = 0; i < 30; i++) {
+/* soft celebration hearts */
+function launchHearts() {
+    for (let i = 0; i < 25; i++) {
         let heart = document.createElement("div");
         heart.innerHTML = "💖";
         heart.style.position = "fixed";
@@ -31,4 +29,4 @@ style.innerHTML = `
         opacity: 0;
     }
 }`;
-document.head.appendChild(style);
+document.head.appendChild(style);;
